@@ -1,10 +1,15 @@
 package com.pichincha.test.models.Entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -26,13 +31,17 @@ public class Client extends Person{
 	@Column(nullable = false)
 	private boolean state;
 
+	@OneToMany(mappedBy = "client", cascade = {CascadeType.ALL}, fetch=FetchType.LAZY)
+	private List<Account> accounts; 
+	
 	public Client() {}
 	
-	public Client(int id, String password, boolean state) {
+	public Client(int id, String password, boolean state, List<Account> accounts) {
 		super();
 		this.id = id;
 		this.password = password;
 		this.state = state;
+		this.accounts = accounts;
 	}
 
 	public int getId() {
@@ -57,7 +66,17 @@ public class Client extends Person{
 
 	public void setState(boolean state) {
 		this.state = state;
-	} 
+	}
+
+	public List<Account> getAccounts() {
+		return accounts;
+	}
+
+	public void setAccounts(List<Account> accounts) {
+		this.accounts = accounts;
+	}
+
+
 	
 	
 }
