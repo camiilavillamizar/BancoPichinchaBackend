@@ -1,6 +1,7 @@
 package com.pichincha.test.models.Entity;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -36,8 +38,11 @@ public class Account {
 	@JoinColumn(name = "clientId", nullable= false)
 	private Client client;
 	
+	@OneToMany(mappedBy = "account", cascade = {CascadeType.ALL}, fetch=FetchType.LAZY)
+	private List<Transaction> transactions; 
+	
 	public Account() {}
-	public Account(int id, int number, String type, BigDecimal balance, boolean state, Client client) {
+	public Account(int id, int number, String type, BigDecimal balance, boolean state, Client client, List<Transaction> transactions) {
 		super();
 		this.id = id;
 		this.number = number;
@@ -45,6 +50,7 @@ public class Account {
 		this.balance = balance;
 		this.state = state;
 		this.client = client;
+		this.transactions = transactions; 
 	}
 
 	public int getId() {
@@ -101,6 +107,12 @@ public class Account {
 
 	public void setClient(Client client) {
 		this.client = client;
+	}
+	public List<Transaction> getTransactions() {
+		return transactions;
+	}
+	public void setTransactions(List<Transaction> transactions) {
+		this.transactions = transactions;
 	} 
 	
 	
