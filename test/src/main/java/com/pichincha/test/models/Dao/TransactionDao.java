@@ -1,8 +1,11 @@
 package com.pichincha.test.models.Dao;
 
+import java.math.BigDecimal;
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.pichincha.test.models.Entity.Transaction;
@@ -18,5 +21,12 @@ public interface TransactionDao extends CrudRepository<Transaction, Long>{
 	public Transaction save(Transaction transaction); 
 	
 	//DELETE
-	public void deleteById(int id); 
+	public void deleteById(int id);
+	
+	//QUERIES
+	@Query(value = "SELECT balance FROM transactions\r\n"
+			+ "where accountId = :accountId \r\n"
+			+ "order by date desc\r\n"
+			+ "limit 1;", nativeQuery = true)
+	public BigDecimal getLastBalance(@Param("accountId") int accountId); 
 }
