@@ -54,9 +54,9 @@ public class ExportPdf {
 				cells.add(nameCell);
 				PdfPCell accountCell = new PdfPCell(new Phrase( String.valueOf(line.getAccountNumber()), font));
 				cells.add(accountCell);
-				PdfPCell accountTypeCell = new PdfPCell(new Phrase(line.getAccountType(), font));
+				PdfPCell accountTypeCell = new PdfPCell(new Phrase(line.getAccountType().toString(), font));
 				cells.add(accountTypeCell);
-				PdfPCell transactionTypeCell = new PdfPCell(new Phrase(line.getTransactionType(), font));
+				PdfPCell transactionTypeCell = new PdfPCell(new Phrase(line.getTransactionType().toString(), font));
 				cells.add(transactionTypeCell);
 				PdfPCell initialBalanceCell = new PdfPCell(new Phrase(line.getInitialBalance().toString(), font));
 				cells.add(initialBalanceCell);

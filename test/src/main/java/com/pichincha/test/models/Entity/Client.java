@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.pichincha.test.utils.classes.Person;
+import com.pichincha.test.utils.enums.Gender;
 
 @Entity
 @Table(name = "clients")
@@ -39,6 +40,19 @@ public class Client extends Person{
 	public Client(int id, String password, boolean state, List<Account> accounts) {
 		super();
 		this.id = id;
+		this.password = password;
+		this.state = state;
+		this.accounts = accounts;
+	}
+	public Client(int id, String name, Gender gender, int age, String dni, String address, String phone, String password, boolean state, List<Account> accounts) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.gender = gender;
+		this.age = age;
+		this.dni = dni;
+		this.address = address;
+		this.phone = phone;
 		this.password = password;
 		this.state = state;
 		this.accounts = accounts;

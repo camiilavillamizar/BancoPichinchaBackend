@@ -4,7 +4,12 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
+
+import com.pichincha.test.utils.enums.AccountType;
+import com.pichincha.test.utils.enums.TransactionType;
 
 @Entity
 public class ReportDto {
@@ -14,18 +19,21 @@ public class ReportDto {
 	private String date; 
 	private String clientName; 
 	private int accountNumber; 
-	private String accountType; 
-	private String transactionType; 
+	@Enumerated(EnumType.STRING)
+	private AccountType accountType; 
+	@Enumerated(EnumType.STRING)
+	private TransactionType transactionType; 
 	private BigDecimal initialBalance; 
 	private boolean accountState; 
 	private BigDecimal transactionAmount; 
 	private BigDecimal transactionBalance;
 	
 	public ReportDto() {}
-	public ReportDto(int id, String date, String clientName, int accountNumber, String accountType, String transactionType,
+	public ReportDto(int id, String date, String clientName, int accountNumber, AccountType accountType, TransactionType transactionType,
 			BigDecimal initialBalance, boolean accountState, BigDecimal transactionAmount, BigDecimal transactionBalance) {
 		super();
 		this.id = id;
+		this.date = date; 
 		this.clientName = clientName;
 		this.accountNumber = accountNumber;
 		this.accountType = accountType;
@@ -59,16 +67,16 @@ public class ReportDto {
 	public void setAccountNumber(int accountNumber) {
 		this.accountNumber = accountNumber;
 	}
-	public String getAccountType() {
+	public AccountType getAccountType() {
 		return accountType;
 	}
-	public void setAccountType(String accountType) {
+	public void setAccountType(AccountType accountType) {
 		this.accountType = accountType;
 	}
-	public String getTransactionType() {
+	public TransactionType getTransactionType() {
 		return transactionType;
 	}
-	public void setTransactionType(String transactionType) {
+	public void setTransactionType(TransactionType transactionType) {
 		this.transactionType = transactionType;
 	}
 	public BigDecimal getInitialBalance() {

@@ -11,23 +11,34 @@ import com.pichincha.test.utils.enums.Gender;
 public class Person {
 	
 	@Column(nullable = false)
-	private String name;
+	protected String name;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
-	private Gender gender; 
+	protected Gender gender; 
 	
 	@Column(nullable = false)
-	private int age; 
+	protected int age; 
 	
 	@Column(nullable = false)
-	private String dni; 
+	protected String dni; 
 	
 	@Column(nullable = false)
-	private String address; 
+	protected String address; 
 	
 	@Column(nullable = false)
-	private String phone;
+	protected String phone;
+
+	public Person() {}
+	public Person(String name, Gender gender, int age, String dni, String address, String phone) {
+		super();
+		this.name = name;
+		this.gender = gender;
+		this.age = age;
+		this.dni = dni;
+		this.address = address;
+		this.phone = phone;
+	}
 
 	public String getName() {
 		return name;
