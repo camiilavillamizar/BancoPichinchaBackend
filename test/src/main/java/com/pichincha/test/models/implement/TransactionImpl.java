@@ -44,6 +44,10 @@ public class TransactionImpl implements ITransaction{
 		BigDecimal actualBalance = sumAmountToBalance(transaction, lastBalance); 
 		transaction.setBalance(actualBalance);
 		transaction.setDate(LocalDateTime.now());
+		
+		if(transaction.getType() == TransactionType.DEBITO) 
+			transaction.setAmount(transaction.getAmount().multiply(new BigDecimal(-1)));
+			
 		return transactionDao.save(transaction); 
 	}
 

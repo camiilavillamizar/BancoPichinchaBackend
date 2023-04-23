@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +18,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.pichincha.test.utils.enums.AccountType;
 
 @Entity
 @Table(name = "accounts")
@@ -26,7 +29,9 @@ public class Account {
 	private int id;
 	
 	private int number; 
-	private String type; 
+	
+	@Enumerated(EnumType.STRING)
+	private AccountType type; 
 	private BigDecimal balance; 
 	private boolean state; 
 	
@@ -42,7 +47,7 @@ public class Account {
 	private List<Transaction> transactions; 
 	
 	public Account() {}
-	public Account(int id, int number, String type, BigDecimal balance, boolean state, Client client, List<Transaction> transactions) {
+	public Account(int id, int number, AccountType type, BigDecimal balance, boolean state, Client client, List<Transaction> transactions) {
 		super();
 		this.id = id;
 		this.number = number;
@@ -69,11 +74,11 @@ public class Account {
 		this.number = number;
 	}
 
-	public String getType() {
+	public AccountType getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(AccountType type) {
 		this.type = type;
 	}
 
