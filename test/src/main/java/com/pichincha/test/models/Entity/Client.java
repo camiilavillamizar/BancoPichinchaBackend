@@ -26,7 +26,6 @@ public class Client extends Person{
 	private int id; 
 	
 	@Column(nullable = false)
-	@JsonProperty(access = Access.WRITE_ONLY)
 	private String password; 
 	
 	@Column(nullable = false)
