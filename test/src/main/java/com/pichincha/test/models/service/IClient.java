@@ -14,5 +14,6 @@ public interface IClient {
 	public void deleteById(int id) throws Exception; 
 	
 	//FUNCTIONS
-	public void checkIfExists(int id) throws Exception; 	
+	public void checkIfExists(int id) throws Exception;
+	public void checkDontHaveAccounts(int id)throws Exception;
 }
