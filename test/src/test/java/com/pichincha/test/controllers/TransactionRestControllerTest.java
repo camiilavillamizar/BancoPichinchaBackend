@@ -83,7 +83,8 @@ public class TransactionRestControllerTest {
 		when(transactionDao.findById(1)).thenReturn(transactionA); 
 		when(transactionDao.save(Mockito.any(Transaction.class))).thenReturn(transactionA); 
 		when(accountDao.findById(1)).thenReturn(accountA); 
-		when(transactionDao.getLastBalance(1)).thenReturn(BigDecimal.ZERO); 
+		when(transactionDao.getLastBalance(1)).thenReturn(BigDecimal.ZERO);
+	
 	}
 	@Test
 	void getAllTest() {

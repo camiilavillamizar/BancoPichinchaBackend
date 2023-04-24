@@ -29,4 +29,8 @@ public interface TransactionDao extends CrudRepository<Transaction, Long>{
 			+ "order by date desc\r\n"
 			+ "limit 1;", nativeQuery = true)
 	public BigDecimal getLastBalance(@Param("accountId") int accountId); 
+	
+	@Query(value = "SELECT * FROM transactions\r\n"
+			+ "where accountId = :accountId ; ", nativeQuery = true)
+	public List<Transaction> getByAccountId(@Param("accountId") int accountId); 
 }

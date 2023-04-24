@@ -2,11 +2,13 @@ package com.pichincha.test.controllers;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,30 +23,33 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.pichincha.test.models.Dao.AccountDao;
 import com.pichincha.test.models.Dao.ClientDao;
+import com.pichincha.test.models.Dao.TransactionDao;
 import com.pichincha.test.models.Entity.Account;
 import com.pichincha.test.models.Entity.Client;
+import com.pichincha.test.models.Entity.Transaction;
 import com.pichincha.test.models.implement.AccountImpl;
 import com.pichincha.test.models.implement.ClientImpl;
 import com.pichincha.test.utils.enums.AccountType;
 import com.pichincha.test.utils.enums.Gender;
+import com.pichincha.test.utils.enums.TransactionType;
 
 @SpringBootTest
 public class AccountRestControllerTest {
 
 	@InjectMocks
 	AccountImpl accountService; 
-	
 	@Mock
 	AccountDao accountDao; 
-	
 	@Mock
-	ClientImpl clientService; 
-	
+	ClientImpl clientService;
 	@Mock
 	ClientDao clientDao; 
+	@Mock
+	TransactionDao transactionDao; 
 	
 	List<Account> accounts = new ArrayList<>(); 
 	Account accountA = new Account(); 
+	Account accountB = new Account(); 
 	
 	Client client = new Client(1, 
 			"Laura Perez",
@@ -63,7 +68,7 @@ public class AccountRestControllerTest {
 		accountA = new Account(1, new Long(102938), AccountType.AHORROS, 
 				BigDecimal.ZERO, true, client, new ArrayList<>()); 
 		
-		Account accountB = new Account(1, new Long(102939), AccountType.CORRIENTE, 
+		accountB = new Account(2, new Long(102939), AccountType.CORRIENTE, 
 				BigDecimal.ZERO, true, client, new ArrayList<>()); 
 		
 		accounts.add(accountA); 
@@ -71,8 +76,18 @@ public class AccountRestControllerTest {
 		
 		when(accountDao.findAll()).thenReturn(accounts); 
 		when(accountDao.findById(1)).thenReturn(accountA); 
+		when(accountDao.findById(2)).thenReturn(accountB);
 		when(accountDao.save(Mockito.any(Account.class))).thenReturn(accountA);
 		when(clientDao.findById(1)).thenReturn(client); 
+		
+		List<Transaction> transactions = new ArrayList<>(); 
+		Transaction transactionA = new Transaction(1, LocalDateTime.now(), TransactionType.CREDITO, 
+				new BigDecimal(100), new BigDecimal(100), accountA); 
+		
+		transactions.add(transactionA); 
+ 
+		when(transactionDao.getByAccountId(1)).thenReturn(transactions); 
+		when(transactionDao.getByAccountId(2)).thenReturn(null); 
 	}
 	
 	@Test
@@ -109,7 +124,12 @@ public class AccountRestControllerTest {
 	}
 	@Test
 	void deleteTest() throws Exception {
-		accountService.deleteById(accountA.getId());
-		verify(accountDao, times(1)).deleteById(accountA.getId());
+		assertThrows(Exception.class, () -> accountService.deleteById(accountA.getId()));
+	}
+	
+	@Test
+	void deleteTest2() throws Exception {
+		accountService.deleteById(accountB.getId());
+		verify(accountDao, times(1)).deleteById(accountB.getId());
 	}
 }

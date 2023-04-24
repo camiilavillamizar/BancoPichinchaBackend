@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pichincha.test.models.Dao.AccountDao;
+import com.pichincha.test.models.Dao.TransactionDao;
 import com.pichincha.test.models.Entity.Account;
 import com.pichincha.test.models.Entity.Client;
 import com.pichincha.test.models.service.IAccount;
@@ -22,6 +23,9 @@ public class AccountImpl implements IAccount{
 	
 	@Autowired
 	IClient clientService; 
+	
+	@Autowired
+	TransactionDao transactionDao; 
 	
 	@Override
 	public List<Account> getAll() {
@@ -57,8 +61,8 @@ public class AccountImpl implements IAccount{
 	@Override
 	public void deleteById(int id) throws Exception {
 		checkIfExists(id);
+		checkDontHaveTransactions(id);
 		accountDao.deleteById(id);
-		
 	}
 
 	@Override
@@ -74,6 +78,14 @@ public class AccountImpl implements IAccount{
 		
 		if(accountDao.findByNumber(number) != null)
 			throw new Exception("ACCOUNT NUMBER ALREADY EXISTS"); 
+		
+	}
+
+	@Override
+	public void checkDontHaveTransactions(int id) throws Exception {
+		if(transactionDao.getByAccountId(id) != null) {
+			throw new Exception("ACCOUNT" + id + "HAVE TRANSACTIONS"); 
+		}
 		
 	}
 
