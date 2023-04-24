@@ -14,6 +14,7 @@ public interface AccountDao extends CrudRepository<Account, Long>{
 	//GETS
 	public List<Account> findAll(); 
 	public Account findById(int id); 
+	public Account findByNumber(Long number); 
 	public List<Account> findByClient(Client client); 
 	//POST/PUT
 	public Account save(Account account); 

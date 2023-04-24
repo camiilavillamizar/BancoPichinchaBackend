@@ -20,9 +20,11 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.pichincha.test.models.Dao.AccountDao;
+import com.pichincha.test.models.Dao.ClientDao;
 import com.pichincha.test.models.Entity.Account;
 import com.pichincha.test.models.Entity.Client;
 import com.pichincha.test.models.implement.AccountImpl;
+import com.pichincha.test.models.implement.ClientImpl;
 import com.pichincha.test.utils.enums.AccountType;
 import com.pichincha.test.utils.enums.Gender;
 
@@ -34,6 +36,12 @@ public class AccountRestControllerTest {
 	
 	@Mock
 	AccountDao accountDao; 
+	
+	@Mock
+	ClientImpl clientService; 
+	
+	@Mock
+	ClientDao clientDao; 
 	
 	List<Account> accounts = new ArrayList<>(); 
 	Account accountA = new Account(); 
@@ -52,10 +60,10 @@ public class AccountRestControllerTest {
 	@BeforeEach()
 	void setUp() {
 		MockitoAnnotations.initMocks(this);
-		accountA = new Account(1, 102938, AccountType.AHORROS, 
+		accountA = new Account(1, new Long(102938), AccountType.AHORROS, 
 				BigDecimal.ZERO, true, client, new ArrayList<>()); 
 		
-		Account accountB = new Account(1, 102939, AccountType.CORRIENTE, 
+		Account accountB = new Account(1, new Long(102939), AccountType.CORRIENTE, 
 				BigDecimal.ZERO, true, client, new ArrayList<>()); 
 		
 		accounts.add(accountA); 
@@ -63,7 +71,8 @@ public class AccountRestControllerTest {
 		
 		when(accountDao.findAll()).thenReturn(accounts); 
 		when(accountDao.findById(1)).thenReturn(accountA); 
-		when(accountDao.save(Mockito.any(Account.class))).thenReturn(accountA); 
+		when(accountDao.save(Mockito.any(Account.class))).thenReturn(accountA);
+		when(clientDao.findById(1)).thenReturn(client); 
 	}
 	
 	@Test
@@ -79,8 +88,8 @@ public class AccountRestControllerTest {
 	}
 	
 	@Test
-	void postTest() {
-		Account accountC = new Account(1, 102940, AccountType.CORRIENTE, 
+	void postTest() throws Exception {
+		Account accountC = new Account(1, new Long(102940), AccountType.CORRIENTE, 
 				BigDecimal.ZERO, true, client, new ArrayList<>()); 
 		Account savedAccount = accountService.save(accountC);
 		
@@ -91,7 +100,7 @@ public class AccountRestControllerTest {
 	
 	@Test
 	void updateTest() throws Exception {
-		Account accountC = new Account(1, 102930, AccountType.AHORROS, 
+		Account accountC = new Account(1, new Long(102930), AccountType.AHORROS, 
 				BigDecimal.ZERO, true, client, new ArrayList<>()); 
 		Account savedAccount = accountService.update(accountC); 
 		assertNotEquals(accountC, savedAccount); 

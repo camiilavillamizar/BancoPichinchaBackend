@@ -41,13 +41,16 @@ public class AccountImpl implements IAccount{
 	}
 
 	@Override
-	public Account save(Account account) {
+	public Account save(Account account) throws Exception {
+		clientService.checkIfExists(account.getClient().getId());
+		checkIfNumberIsValid(account.getNumber()); 
 		return accountDao.save(account); 
 	}
 
 	@Override
 	public Account update(Account account) throws Exception {
 		checkIfExists(account.getId());
+		checkIfNumberIsValid(account.getNumber()); 
 		return accountDao.save(account);
 	}
 
@@ -63,6 +66,14 @@ public class AccountImpl implements IAccount{
 		
 		if(getById(id) == null)
 			throw new Exception("Account "+ id + " does not exist"); 
+		
+	}
+
+	@Override
+	public void checkIfNumberIsValid(Long number) throws Exception {
+		
+		if(accountDao.findByNumber(number) != null)
+			throw new Exception("ACCOUNT NUMBER ALREADY EXISTS"); 
 		
 	}
 

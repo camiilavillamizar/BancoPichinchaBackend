@@ -51,7 +51,7 @@ public class ClientImpl implements IClient{
 	public void checkIfExists(int id) throws Exception {
 		
 		if(getById(id) == null) 
-			throw new Exception("ID " + id + " does not exist"); 
+			throw new Exception("CLIENT " + id + " does not exist"); 
 	}
 
 }

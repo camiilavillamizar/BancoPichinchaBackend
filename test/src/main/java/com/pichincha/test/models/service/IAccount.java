@@ -11,10 +11,11 @@ public interface IAccount {
 	public List<Account> getAll(); 
 	public Account getById(int id); 
 	public List<Account> getByClient(int clientId) throws Exception; 
-	public Account save(Account account); 
+	public Account save(Account account) throws Exception; 
 	public Account update(Account account) throws Exception; 
 	public void deleteById(int id) throws Exception; 
 	
 	//FUNCTIONS
-	public void checkIfExists(int id) throws Exception; 
+	public void checkIfExists(int id) throws Exception;
+	public void checkIfNumberIsValid(Long number) throws Exception;
 }

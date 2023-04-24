@@ -28,7 +28,7 @@ public class Account {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	private int number; 
+	private Long number; 
 	
 	@Enumerated(EnumType.STRING)
 	private AccountType type; 
@@ -38,16 +38,20 @@ public class Account {
 	@Transient
 	private String clientName; 
 	
-	@JsonBackReference
+	@Transient
+	private int clientId;
+	
+	@JsonBackReference(value="client")
 	@ManyToOne
 	@JoinColumn(name = "clientId", nullable= false)
 	private Client client;
 	
+	@JsonBackReference(value = "transactions")
 	@OneToMany(mappedBy = "account", cascade = {CascadeType.ALL}, fetch=FetchType.LAZY)
 	private List<Transaction> transactions; 
 	
 	public Account() {}
-	public Account(int id, int number, AccountType type, BigDecimal balance, boolean state, Client client, List<Transaction> transactions) {
+	public Account(int id, Long number, AccountType type, BigDecimal balance, boolean state, Client client, List<Transaction> transactions) {
 		super();
 		this.id = id;
 		this.number = number;
@@ -66,11 +70,11 @@ public class Account {
 		this.id = id;
 	}
 
-	public int getNumber() {
+	public Long getNumber() {
 		return number;
 	}
 
-	public void setNumber(int number) {
+	public void setNumber(Long number) {
 		this.number = number;
 	}
 
@@ -106,6 +110,12 @@ public class Account {
 		this.clientName = clientName;
 	}
 
+	public int getClientId() {
+		return client.getId();
+	}
+	public void setClientId(int clientId) {
+		this.clientId = clientId;
+	}
 	public Client getClient() {
 		return client;
 	}

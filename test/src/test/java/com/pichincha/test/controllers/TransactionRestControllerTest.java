@@ -62,9 +62,9 @@ public class TransactionRestControllerTest {
 			true, 
 			new ArrayList());
 	
-	Account accountA = new Account(1, 102938, AccountType.AHORROS, 
+	Account accountA = new Account(1, new Long(102938), AccountType.AHORROS, 
 			BigDecimal.ZERO, true, client, new ArrayList<>()); 
-	Account accountB = new Account(1, 102938, AccountType.CORRIENTE, 
+	Account accountB = new Account(1, new Long(102938), AccountType.CORRIENTE, 
 			BigDecimal.ZERO, true, client, new ArrayList<>()); 
 	
 	@BeforeEach()

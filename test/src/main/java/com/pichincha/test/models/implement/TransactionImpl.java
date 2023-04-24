@@ -68,7 +68,7 @@ public class TransactionImpl implements ITransaction{
 	@Override
 	public void checkIfExists(int id) throws Exception {
 		if(getById(id) == null) {
-			throw new Exception("ID " + id + " does not exist"); 
+			throw new Exception("TRANSACTION " + id + " does not exist"); 
 		}
 	}
 
