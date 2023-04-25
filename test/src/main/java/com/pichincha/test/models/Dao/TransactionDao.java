@@ -33,4 +33,8 @@ public interface TransactionDao extends CrudRepository<Transaction, Long>{
 	@Query(value = "SELECT * FROM transactions\r\n"
 			+ "where accountId = :accountId ; ", nativeQuery = true)
 	public List<Transaction> getByAccountId(@Param("accountId") int accountId); 
+	
+	@Query(value = "CALL getLastTransaction( :accountId ) ; ", nativeQuery = true)
+	public Transaction getLastTransaction(@Param("accountId") int accountId); 
+	
 }

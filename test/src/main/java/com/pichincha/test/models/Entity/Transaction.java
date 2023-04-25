@@ -35,10 +35,6 @@ public class Transaction {
 	private BigDecimal amount; 
 	private BigDecimal balance; 
 	
-	@Transient 
-	private int accountId; 
-	
-	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "accountId")
 	private Account account;
@@ -91,14 +87,6 @@ public class Transaction {
 
 	public void setBalance(BigDecimal balance) {
 		this.balance = balance;
-	}
-
-	public int getAccountId() {
-		return account.getId();
-	}
-
-	public void setAccountId(int accountId) {
-		this.accountId = accountId;
 	}
 
 	public Account getAccount() {
