@@ -54,7 +54,10 @@ public class AccountImpl implements IAccount{
 	@Override
 	public Account update(Account account) throws Exception {
 		checkIfExists(account.getId());
-		checkIfNumberIsValid(account.getNumber()); 
+		Account actualAccount = getById(account.getId()); 
+		if(!actualAccount.getNumber().equals(account.getNumber())) {
+			checkIfNumberIsValid(account.getNumber()); 			
+		}
 		return accountDao.save(account);
 	}
 
