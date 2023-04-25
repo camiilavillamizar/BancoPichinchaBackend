@@ -62,7 +62,7 @@ public class ClientImpl implements IClient{
 
 	@Override
 	public void checkDontHaveAccounts(int id) throws Exception {
-		if(accountDao.getByClientId(id) != null) {
+		if(accountDao.getByClientId(id).size() != 0) {
 			throw new Exception("CLIENT "+ id + " HAS ACCOUNTS"); 
 		}
 	}

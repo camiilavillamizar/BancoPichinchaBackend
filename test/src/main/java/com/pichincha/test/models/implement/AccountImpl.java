@@ -86,8 +86,8 @@ public class AccountImpl implements IAccount{
 
 	@Override
 	public void checkDontHaveTransactions(int id) throws Exception {
-		if(transactionDao.getByAccountId(id) != null) {
-			throw new Exception("ACCOUNT" + id + "HAVE TRANSACTIONS"); 
+		if(transactionDao.getByAccountId(id).size() != 0) {
+			throw new Exception("ACCOUNT " + id + " HAVE TRANSACTIONS"); 
 		}
 		
 	}
