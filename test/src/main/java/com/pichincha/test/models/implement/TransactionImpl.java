@@ -135,7 +135,7 @@ public class TransactionImpl implements ITransaction{
 		
 		BigDecimal balance = actualTransaction.getBalance(); 
 		if(transaction.getType() == TransactionType.CREDITO) {
-			 return balance = balance.add(transaction.getAmount().subtract(actualTransaction.getBalance())); 
+			 return balance = balance.add(transaction.getAmount().subtract(actualTransaction.getAmount())); 
 		}
 		if(transaction.getType() == TransactionType.DEBITO) {; 
 			 balance = balance.subtract(transaction.getAmount().subtract(actualTransaction.getAmount().abs()));
