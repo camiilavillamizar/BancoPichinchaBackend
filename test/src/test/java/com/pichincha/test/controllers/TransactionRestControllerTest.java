@@ -63,6 +63,7 @@ public class TransactionRestControllerTest {
 	
 	List<Transaction> transactions = new ArrayList<>(); 
 	Transaction transactionA = new Transaction(); 
+	Transaction transactionB = new Transaction(); 
 	
 	Client client = new Client(1, 
 			"Laura Perez",
@@ -87,7 +88,7 @@ public class TransactionRestControllerTest {
 		transactionA = new Transaction(1, LocalDateTime.now(), TransactionType.CREDITO, 
 				new BigDecimal(100), new BigDecimal(100), accountA); 
 		
-		Transaction transactionB = new Transaction(1, LocalDateTime.now(), TransactionType.DEBITO, 
+		transactionB = new Transaction(1, LocalDateTime.now(), TransactionType.DEBITO, 
 				new BigDecimal(100), new BigDecimal(100), accountB); 
 		
 		transactions.add(transactionA); 
@@ -150,6 +151,19 @@ public class TransactionRestControllerTest {
 		assertNotEquals(transactionC, savedTransaction); 
 		assertEquals(savedTransaction, transactionA); 
 		verify(transactionDao, times(1)).save(transactionC); 
+	}
+	
+	/**
+	 * Should throw exception if is not last transaction
+	 * @throws Exception
+	 */
+	@Test
+	void updateTest2() throws Exception {
+		Transaction transactionC = new Transaction(3, LocalDateTime.now(), TransactionType.CREDITO, 
+				new BigDecimal(100), new BigDecimal(100), accountB);
+		
+		when(transactionDao.getLastTransaction(2)).thenReturn(transactionC); 
+		assertThrows(Exception.class, () -> transactionService.update(transactionC));
 	}
 	@Test
 	void deleteTest() throws Exception {

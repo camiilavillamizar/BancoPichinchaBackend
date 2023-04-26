@@ -88,6 +88,7 @@ public class AccountRestControllerTest {
  
 		when(transactionDao.getByAccountId(1)).thenReturn(transactions); 
 		when(transactionDao.getByAccountId(2)).thenReturn(new ArrayList<>()); 
+		when(accountDao.findByNumber(new Long(102938))).thenReturn(accountA); 
 	}
 	
 	@Test
@@ -112,7 +113,17 @@ public class AccountRestControllerTest {
 		assertEquals(savedAccount, accountA); 
 		verify(accountDao, times(1)).save(accountC); 
 	}
-	
+	/**
+	 * Can't save if account number already exists
+	 * @throws Exception
+	 */
+	@Test
+	void saveTest2() throws Exception {
+		Account accountC = new Account(3, new Long(102938), AccountType.AHORROS, 
+				BigDecimal.ZERO, true, client, new ArrayList<>()); 
+		
+		assertThrows(Exception.class, () -> accountService.save(accountC));
+	}
 	@Test
 	void updateTest() throws Exception {
 		Account accountC = new Account(1, new Long(102930), AccountType.AHORROS, 
@@ -122,6 +133,18 @@ public class AccountRestControllerTest {
 		assertEquals(savedAccount, accountA); 
 		verify(accountDao, times(1)).save(accountC); 
 	}
+	/**
+	 * Can't update if account number already exists
+	 * @throws Exception
+	 */
+	@Test
+	void updateTest2() throws Exception {
+		Account accountC = new Account(2, new Long(102938), AccountType.AHORROS, 
+				BigDecimal.ZERO, true, client, new ArrayList<>()); 
+		
+		assertThrows(Exception.class, () -> accountService.update(accountC)); 
+	}
+	
 	@Test
 	void deleteTest() throws Exception {
 		assertThrows(Exception.class, () -> accountService.deleteById(accountA.getId()));
