@@ -70,7 +70,7 @@ public class ReportRestControllerTest {
 	
 	@Test
 	void getReportJSONTest() throws Exception {
-		 MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("http://localhost:8080/reports/json?startDate=20230303&endDate=20230501&clientId=1").contentType(MediaType.APPLICATION_OCTET_STREAM)).andExpect(MockMvcResultMatchers.status().is(200)).andReturn();
+		 MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("http://localhost:8080/api/reports/json?startDate=20230303&endDate=20230501&clientId=1").contentType(MediaType.APPLICATION_OCTET_STREAM)).andExpect(MockMvcResultMatchers.status().is(200)).andReturn();
 	     assertEquals(200, result.getResponse().getStatus());
 	     assertEquals(2, result.getResponse().getContentAsByteArray().length);
 	     assertEquals("application/octet-stream", result.getResponse().getContentType());
@@ -78,7 +78,7 @@ public class ReportRestControllerTest {
 	
 	@Test
 	void getReportPDFTest() throws Exception {
-		 MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("http://localhost:8080/reports/pdf?startDate=20230303&endDate=20230501&clientId=1").contentType(MediaType.APPLICATION_OCTET_STREAM)).andExpect(MockMvcResultMatchers.status().is(200)).andReturn();
+		 MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("http://localhost:8080/api/reports/pdf?startDate=20230303&endDate=20230501&clientId=1").contentType(MediaType.APPLICATION_OCTET_STREAM)).andExpect(MockMvcResultMatchers.status().is(200)).andReturn();
 	     assertEquals(200, result.getResponse().getStatus());
 	     assertEquals("application/pdf", result.getResponse().getContentType());
 	}

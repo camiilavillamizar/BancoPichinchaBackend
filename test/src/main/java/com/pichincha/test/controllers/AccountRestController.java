@@ -18,7 +18,7 @@ import com.pichincha.test.models.Entity.Client;
 import com.pichincha.test.models.service.IAccount;
 
 @RestController()
-@RequestMapping("accounts")
+@RequestMapping("api/accounts")
 public class AccountRestController {
 
 	@Autowired

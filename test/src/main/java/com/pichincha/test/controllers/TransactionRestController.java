@@ -17,7 +17,7 @@ import com.pichincha.test.models.Entity.Transaction;
 import com.pichincha.test.models.service.ITransaction;
 
 @RestController()
-@RequestMapping("transactions")
+@RequestMapping("api/transactions")
 public class TransactionRestController {
 	
 	@Autowired

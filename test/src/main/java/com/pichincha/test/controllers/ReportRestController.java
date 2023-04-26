@@ -19,7 +19,7 @@ import com.pichincha.test.models.Dtos.services.ReportService;
 import com.pichincha.test.utils.exports.ExportPdf;
 
 @RestController()
-@RequestMapping("reports")
+@RequestMapping("api/reports")
 public class ReportRestController {
 
 	@Autowired
