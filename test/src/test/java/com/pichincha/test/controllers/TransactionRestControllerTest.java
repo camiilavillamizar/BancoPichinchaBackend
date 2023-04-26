@@ -20,15 +20,21 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.pichincha.test.models.Dao.AccountDao;
+import com.pichincha.test.models.Dao.ClientDao;
 import com.pichincha.test.models.Dao.TransactionDao;
 import com.pichincha.test.models.Entity.Account;
 import com.pichincha.test.models.Entity.Client;
 import com.pichincha.test.models.Entity.Transaction;
 import com.pichincha.test.models.implement.AccountImpl;
+import com.pichincha.test.models.implement.ClientImpl;
 import com.pichincha.test.models.implement.TransactionImpl;
+import com.pichincha.test.models.service.IAccount;
+import com.pichincha.test.models.service.IClient;
 import com.pichincha.test.utils.enums.AccountType;
 import com.pichincha.test.utils.enums.Gender;
 import com.pichincha.test.utils.enums.TransactionType;
@@ -43,10 +49,17 @@ public class TransactionRestControllerTest {
 	TransactionDao transactionDao;
 	
 	@Mock
-	AccountImpl accountService;
+	ClientDao clientDao; 
 	
 	@Mock
 	AccountDao accountDao; 
+	
+	@Mock 
+	IAccount accountService; 
+	
+	@Mock
+	IClient clientService; 
+
 	
 	List<Transaction> transactions = new ArrayList<>(); 
 	Transaction transactionA = new Transaction(); 
@@ -69,6 +82,7 @@ public class TransactionRestControllerTest {
 	
 	@BeforeEach()
 	void setUp() {
+
 		MockitoAnnotations.initMocks(this);
 		transactionA = new Transaction(1, LocalDateTime.now(), TransactionType.CREDITO, 
 				new BigDecimal(100), new BigDecimal(100), accountA); 
@@ -82,9 +96,11 @@ public class TransactionRestControllerTest {
 		when(transactionDao.findAll()).thenReturn(transactions); 
 		when(transactionDao.findById(1)).thenReturn(transactionA); 
 		when(transactionDao.save(Mockito.any(Transaction.class))).thenReturn(transactionA); 
-		when(accountDao.findById(1)).thenReturn(accountA); 
+		when(accountService.getById(1)).thenReturn(accountA); 
+		when(accountService.getById(2)).thenReturn(accountB); 
+		when(clientService.getById(1)).thenReturn(client);
 		when(transactionDao.getLastBalance(1)).thenReturn(BigDecimal.ZERO);
-	
+		when(transactionDao.getLastTransaction(1)).thenReturn(transactionA);
 	}
 	@Test
 	void getAllTest() {

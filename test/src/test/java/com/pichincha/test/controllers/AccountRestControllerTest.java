@@ -87,7 +87,7 @@ public class AccountRestControllerTest {
 		transactions.add(transactionA); 
  
 		when(transactionDao.getByAccountId(1)).thenReturn(transactions); 
-		when(transactionDao.getByAccountId(2)).thenReturn(null); 
+		when(transactionDao.getByAccountId(2)).thenReturn(new ArrayList<>()); 
 	}
 	
 	@Test

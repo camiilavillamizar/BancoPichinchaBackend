@@ -91,7 +91,7 @@ public class ClientRestControllerTest {
 						BigDecimal.ZERO, true, clientA, new ArrayList<>());
 		accounts.add(accountA); 
 		when(accountDao.getByClientId(1)).thenReturn(accounts);
-		when(accountDao.getByClientId(2)).thenReturn(null);
+		when(accountDao.getByClientId(2)).thenReturn(new ArrayList<>());
 	}
 	
 	@Test

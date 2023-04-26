@@ -33,6 +33,7 @@ public class TransactionImpl implements ITransaction{
 	@Autowired
 	IClient clientService; 
 	
+	
 	@Override
 	public List<Transaction> getAll() {
 		return transactionDao.findAll(); 

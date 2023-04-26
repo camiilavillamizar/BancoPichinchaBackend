@@ -27,6 +27,11 @@ public class AccountImpl implements IAccount{
 	@Autowired
 	TransactionDao transactionDao; 
 	
+	
+	public AccountImpl(AccountDao accountDao) {
+		this.accountDao = accountDao; 
+	}
+	
 	@Override
 	public List<Account> getAll() {
 		return accountDao.findAll(); 
